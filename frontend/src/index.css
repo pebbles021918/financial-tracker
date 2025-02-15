@@ -1,0 +1,448 @@
+/* ---- GENERAL STYLES ---- */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f9f6f2;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* DARK MODE */
+body.dark-mode {
+  background-color: #1e1e1e;
+  color: white;
+}
+
+/* ---- CUTE TITLE ---- */
+.cute-title {
+  font-size: 32px;
+  color: #ff80ab;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px 0;
+  font-family: "Pacifico", cursive; /* Cute Google Font */
+}
+
+/* ---- SIDEBAR ---- */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 250px;
+  height: 100vh;
+  background: #fce4ec; /* Softer pastel pink */
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  transition: background 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h1 {
+  font-size: 22px;
+  color: #444;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  padding: 12px;
+  font-size: 18px;
+  transition: background 0.3s;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: color 0.3s;
+}
+
+.sidebar ul li:hover {
+  background: #ffccd5; /* Light pastel hover */
+}
+
+.sidebar ul li a:hover {
+  color: #ff80ab;
+}
+
+/* DARK MODE SIDEBAR */
+body.dark-mode .sidebar {
+  background: #2c2c2c;
+}
+
+body.dark-mode .sidebar h1,
+body.dark-mode .sidebar ul li a {
+  color: #f0f0f0;
+}
+
+/* ---- TOP NAVBAR ---- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 250px;
+  width: calc(100% - 250px);
+  height: 60px;
+  background: #2c2c2c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.theme-toggle {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* ---- MAIN CONTENT ---- */
+.main-content {
+  margin-left: 270px;
+  padding: 40px;
+}
+
+/* ---- AUTH PAGE (LOGIN/REGISTER) ---- */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.auth-box {
+  background: white;
+  padding: 40px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  text-align: center;
+  width: 380px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.auth-button {
+  background: #ff80ab;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  width: 100%;
+}
+
+.auth-button:hover {
+  opacity: 0.85;
+}
+
+.toggle-auth {
+  color: #007bff;
+  cursor: pointer;
+  margin-top: 12px;
+  text-decoration: none;
+}
+
+/* DARK MODE AUTH */
+body.dark-mode .auth-box {
+  background: #2c2c2c;
+  color: white;
+}
+
+/* ---- DASHBOARD ---- */
+.dashboard-container {
+  width: 85%;
+  margin: auto;
+  padding: 30px;
+  background: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* DARK MODE DASHBOARD */
+.dark-mode .dashboard-container {
+  background: #2c2c2c;
+}
+
+/* ---- EXPENSE FORM ---- */
+.expense-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.expense-form input,
+.expense-form select {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 200px;
+}
+
+.expense-form button {
+  background: #ff80ab;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.expense-form button:hover {
+  opacity: 0.85;
+}
+
+/* ---- TRANSACTIONS LIST ---- */
+.transaction-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.transaction-list li {
+  padding: 14px;
+  margin-bottom: 6px;
+  background: #f1f1f1;
+  border-radius: 6px;
+  text-align: left;
+  font-size: 16px;
+}
+
+.dark-mode .transaction-list li {
+  background: #333;
+  color: white;
+}
+
+/* ---- PIE CHART ---- */
+.chart-container {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 85%;
+  margin: auto;
+  min-height: 320px;
+}
+
+.dark-mode .chart-container {
+  background: #2c2c2c;
+}
+
+/* ---- BUTTONS ---- */
+button {
+  background: #FF9A8B;
+  border: none;
+  padding: 12px;
+  cursor: pointer;
+  color: white;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+.dark-mode button {
+  background: #ff6b6b;
+}
+
+/* SETTINGS PAGE */
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: auto;
+  gap: 10px;
+}
+
+.settings-form label {
+  font-weight: bold;
+  color: #555;
+}
+
+.settings-form input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.save-button {
+  background: #6B6BFF;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.save-button:hover {
+  opacity: 0.8;
+}
+
+.account-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.account-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.account-form button {
+  background: #ff80ab;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.account-list {
+  list-style: none;
+  padding: 0;
+}
+
+.account-list li {
+  padding: 12px;
+  background: #fff;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.account-list button {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* Transaction List */
+.transaction-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.transaction-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 12px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-desc {
+  flex: 2;
+  font-weight: bold;
+}
+
+.transaction-amount {
+  flex: 1;
+  text-align: center;
+  font-weight: bold;
+}
+
+.transaction-account {
+  flex: 1;
+  text-align: center;
+}
+
+.transaction-type {
+  flex: 1;
+  text-align: center;
+  font-weight: bold;
+}
+
+.income {
+  border-left: 5px solid #28a745;
+}
+
+.expense {
+  border-left: 5px solid #dc3545;
+}
+
+/* Buttons */
+.transaction-list button {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+
+.transaction-list button:hover {
+  opacity: 0.8;
+}
+
+/* Filter Section */
+.filter-section {
+  margin-bottom: 15px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.filter-section label {
+  font-weight: bold;
+}
+
+.filter-section select {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
