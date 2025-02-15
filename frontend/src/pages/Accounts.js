@@ -12,21 +12,25 @@ export default function Accounts() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("accounts", JSON.stringify(accounts));
+    if (accounts.length > 0) {
+      localStorage.setItem("accounts", JSON.stringify(accounts));
+    }
   }, [accounts]);
 
   const handleAddAccount = () => {
     if (!accountName.trim()) return;
 
+    let updatedAccounts;
     if (editingIndex !== null) {
-      const updatedAccounts = [...accounts];
+      updatedAccounts = [...accounts];
       updatedAccounts[editingIndex] = accountName;
-      setAccounts(updatedAccounts);
       setEditingIndex(null);
     } else {
-      setAccounts([...accounts, accountName]);
+      updatedAccounts = [...accounts, accountName];
     }
 
+    setAccounts(updatedAccounts);
+    localStorage.setItem("accounts", JSON.stringify(updatedAccounts));
     setAccountName("");
   };
 
@@ -38,6 +42,7 @@ export default function Accounts() {
   const handleDeleteAccount = (index) => {
     const updatedAccounts = accounts.filter((_, i) => i !== index);
     setAccounts(updatedAccounts);
+    localStorage.setItem("accounts", JSON.stringify(updatedAccounts));
   };
 
   return (

@@ -1,39 +1,49 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-// Create authentication context
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
-  // ✅ Load user from localStorage when the app starts
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    try {
+      const storedUser = localStorage.getItem("user");
+      const storedToken = localStorage.getItem("token");
+
+      if (storedUser && storedToken) {
+        setUser(JSON.parse(storedUser));
+        setToken(storedToken);
+      }
+    } catch (error) {
+      console.error("Error loading user data:", error);
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
     }
   }, []);
 
-  // ✅ Function to log in
-  const login = (userData) => {
+  const login = (userData, authToken, rememberMe = true) => {
     setUser(userData);
-    localStorage.setItem("user", JSON.stringify(userData)); // Store user in localStorage
+    setToken(authToken);
+
+    if (rememberMe) {
+      localStorage.setItem("user", JSON.stringify(userData));
+      localStorage.setItem("token", authToken);
+    }
   };
 
-  // ✅ Function to log out
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("user"); // Remove user from localStorage
+    setToken(null);
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, token, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-// Hook to use the AuthContext
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+export const useAuth = () => useContext(AuthContext);

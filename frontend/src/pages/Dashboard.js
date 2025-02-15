@@ -1,94 +1,109 @@
 import React, { useState, useEffect } from "react";
 import { Chart } from "react-google-charts";
 import "../index.css";
+import { useAuth } from "../AuthContext";
 
 export default function Dashboard() {
+  const { user } = useAuth();
   const [transactions, setTransactions] = useState([]);
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [type, setType] = useState("Income");
   const [selectedAccount, setSelectedAccount] = useState("");
   const [accounts, setAccounts] = useState([]);
-  const [category, setCategory] = useState(""); // ✅ Added category state
+  const [category, setCategory] = useState("");
 
   useEffect(() => {
-    const storedAccounts = JSON.parse(localStorage.getItem("accounts")) || [];
-    setAccounts(storedAccounts);
+    if (!user || !user.token) return;
 
-    const storedTransactions = JSON.parse(localStorage.getItem("transactions")) || [];
-    setTransactions(storedTransactions);
-  }, []);
+    const fetchAccounts = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/accounts", {
+          headers: { Authorization: `Bearer ${user.token}` },
+        });
+        const data = await res.json();
 
-  useEffect(() => {
-    localStorage.setItem("transactions", JSON.stringify(transactions));
-  }, [transactions]);
+        if (Array.isArray(data) && data.length > 0) {
+          setAccounts(data);
+          if (!selectedAccount) {
+            setSelectedAccount(data[0]._id);
+          }
+        } else {
+          setAccounts([]);
+        }
+      } catch (error) {
+        console.error("Error fetching accounts:", error);
+      }
+    };
 
-  const handleAddTransaction = () => {
-    if (!description || !amount || !selectedAccount || (type === "Expense" && !category)) return;
+    fetchAccounts();
+  }, [user]);
+
+  const handleAddTransaction = async () => {
+    if (!description || !amount || !selectedAccount || (type === "Expense" && !category)) {
+      alert("Please fill out all required fields.");
+      return;
+    }
 
     const newTransaction = {
+      accountId: selectedAccount,
       description,
       amount: parseFloat(amount),
       type,
-      account: selectedAccount,
-      category: type === "Expense" ? category : "Income", // ✅ Save category if expense
+      category: type === "Expense" ? category : "Income",
+      date: new Date().toISOString(),
     };
 
-    setTransactions([...transactions, newTransaction]);
-    setDescription("");
-    setAmount("");
-    setCategory(""); // ✅ Reset category field
+    try {
+      const res = await fetch("http://localhost:5000/transactions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify(newTransaction),
+      });
+
+      if (res.ok) {
+        const savedTransaction = await res.json();
+        setTransactions([...transactions, savedTransaction]);
+        setDescription("");
+        setAmount("");
+        setCategory("");
+      } else {
+        console.error("Failed to add transaction");
+      }
+    } catch (error) {
+      console.error("Error adding transaction:", error);
+    }
   };
-
-  // ✅ Filter transactions by selected account
-  const filteredTransactions = transactions.filter(t => t.account === selectedAccount);
-
-  // ✅ Calculate income and expenses for the selected account
-  const income = filteredTransactions
-    .filter((t) => t.type === "Income")
-    .reduce((acc, t) => acc + t.amount, 0);
-  const expenses = filteredTransactions
-    .filter((t) => t.type === "Expense")
-    .reduce((acc, t) => acc + t.amount, 0);
-
-  const chartData = [
-    ["Category", "Amount"],
-    ["Income", income],
-    ["Expenses", expenses],
-  ];
 
   return (
     <div className="main-content">
       <h1>Dashboard</h1>
 
-      {/* ✅ Account Selection Dropdown */}
       <div className="expense-form">
         <select value={selectedAccount} onChange={(e) => setSelectedAccount(e.target.value)}>
           <option value="">Select Account</option>
-          {accounts.map((account, index) => (
-            <option key={index} value={account}>{account}</option>
-          ))}
+          {accounts.length > 0 ? (
+            accounts.map((account) => (
+              <option key={account._id} value={account._id}>
+                {account.name}
+              </option>
+            ))
+          ) : (
+            <option disabled>No accounts found</option>
+          )}
         </select>
 
-        <input
-          type="text"
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        />
-        
+        <input type="text" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+        <input type="number" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
+
         <select value={type} onChange={(e) => setType(e.target.value)}>
           <option value="Income">Income</option>
           <option value="Expense">Expense</option>
         </select>
 
-        {/* ✅ Show category dropdown only if Expense is selected */}
         {type === "Expense" && (
           <select value={category} onChange={(e) => setCategory(e.target.value)}>
             <option value="">Select Category</option>
@@ -103,13 +118,7 @@ export default function Dashboard() {
       </div>
 
       <h2>Income vs. Expenses</h2>
-      <div className="chart-container">
-        {income === 0 && expenses === 0 ? (
-          <p className="no-data-message">No data available</p>
-        ) : (
-          <Chart chartType="PieChart" width="100%" height="300px" data={chartData} />
-        )}
-      </div>
+      <Chart chartType="PieChart" width="100%" height="300px" data={[["Category", "Amount"], ["Income", 0], ["Expenses", 0]]} />
     </div>
   );
 }

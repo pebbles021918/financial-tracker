@@ -13,7 +13,7 @@ const ProtectedRoute = ({ element }) => {
   const { user } = useAuth();
   return user ? (
     <div className="app-layout">
-      <Sidebar />  {/* ✅ Sidebar solo aparece si hay sesión */}
+      <Sidebar />  
       <div className="main-content">{element}</div>
     </div>
   ) : (

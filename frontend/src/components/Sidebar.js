@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../index.css";
-import { useAuth } from "../AuthContext"; // Importar el contexto de autenticación
+import { useAuth } from "../AuthContext"; 
 
 const Sidebar = () => {
-  const { logout } = useAuth(); // Obtener logout del contexto
+  const { logout } = useAuth(); 
 
   return (
     <div className="sidebar">

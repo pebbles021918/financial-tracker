@@ -1,4 +1,4 @@
-/* ---- GENERAL STYLES ---- */
+
 body {
   font-family: 'Inter', sans-serif;
   background-color: #f9f6f2;
@@ -8,30 +8,23 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* DARK MODE */
-body.dark-mode {
-  background-color: #1e1e1e;
-  color: white;
-}
-
-/* ---- CUTE TITLE ---- */
 .cute-title {
   font-size: 32px;
   color: #ff80ab;
   font-weight: bold;
   text-align: center;
   margin: 20px 0;
-  font-family: "Pacifico", cursive; /* Cute Google Font */
+  font-family: "Pacifico", cursive; 
 }
 
-/* ---- SIDEBAR ---- */
+
 .sidebar {
   position: fixed;
   left: 0;
   top: 0;
   width: 250px;
   height: 100vh;
-  background: #fce4ec; /* Softer pastel pink */
+  background: #fce4ec; 
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   padding: 25px;
   transition: background 0.3s, box-shadow 0.3s;
@@ -68,24 +61,21 @@ body.dark-mode {
 }
 
 .sidebar ul li:hover {
-  background: #ffccd5; /* Light pastel hover */
+  background: #ffccd5; 
 }
 
 .sidebar ul li a:hover {
   color: #ff80ab;
 }
 
-/* DARK MODE SIDEBAR */
-body.dark-mode .sidebar {
-  background: #2c2c2c;
-}
+
 
 body.dark-mode .sidebar h1,
 body.dark-mode .sidebar ul li a {
   color: #f0f0f0;
 }
 
-/* ---- TOP NAVBAR ---- */
+
 .navbar {
   position: fixed;
   top: 0;
@@ -115,13 +105,12 @@ body.dark-mode .sidebar ul li a {
   font-size: 16px;
 }
 
-/* ---- MAIN CONTENT ---- */
+
 .main-content {
   margin-left: 270px;
   padding: 40px;
 }
 
-/* ---- AUTH PAGE (LOGIN/REGISTER) ---- */
 .auth-container {
   display: flex;
   justify-content: center;
@@ -175,13 +164,12 @@ body.dark-mode .sidebar ul li a {
   text-decoration: none;
 }
 
-/* DARK MODE AUTH */
+
 body.dark-mode .auth-box {
   background: #2c2c2c;
   color: white;
 }
 
-/* ---- DASHBOARD ---- */
 .dashboard-container {
   width: 85%;
   margin: auto;
@@ -192,12 +180,7 @@ body.dark-mode .auth-box {
   text-align: center;
 }
 
-/* DARK MODE DASHBOARD */
-.dark-mode .dashboard-container {
-  background: #2c2c2c;
-}
 
-/* ---- EXPENSE FORM ---- */
 .expense-form {
   display: flex;
   justify-content: center;
@@ -229,7 +212,7 @@ body.dark-mode .auth-box {
   opacity: 0.85;
 }
 
-/* ---- TRANSACTIONS LIST ---- */
+
 .transaction-list {
   list-style: none;
   padding: 0;
@@ -250,7 +233,7 @@ body.dark-mode .auth-box {
   color: white;
 }
 
-/* ---- PIE CHART ---- */
+
 .chart-container {
   margin-top: 30px;
   display: flex;
@@ -269,7 +252,7 @@ body.dark-mode .auth-box {
   background: #2c2c2c;
 }
 
-/* ---- BUTTONS ---- */
+
 button {
   background: #FF9A8B;
   border: none;
@@ -288,7 +271,7 @@ button:hover {
   background: #ff6b6b;
 }
 
-/* SETTINGS PAGE */
+
 .settings-form {
   display: flex;
   flex-direction: column;
@@ -366,7 +349,6 @@ button:hover {
   cursor: pointer;
 }
 
-/* Transaction List */
 .transaction-list {
   list-style: none;
   padding: 0;
@@ -414,7 +396,6 @@ button:hover {
   border-left: 5px solid #dc3545;
 }
 
-/* Buttons */
 .transaction-list button {
   background: #ff6b6b;
   color: white;
@@ -429,7 +410,6 @@ button:hover {
   opacity: 0.8;
 }
 
-/* Filter Section */
 .filter-section {
   margin-bottom: 15px;
   display: flex;

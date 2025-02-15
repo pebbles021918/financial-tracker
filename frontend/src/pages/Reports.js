@@ -10,7 +10,6 @@ export default function Reports() {
     setTransactions(storedTransactions);
   }, []);
 
-  // Group expenses by category
   const expenseCategories = transactions
     .filter((t) => t.type === "Expense")
     .reduce((acc, transaction) => {
@@ -18,7 +17,6 @@ export default function Reports() {
       return acc;
     }, {});
 
-  // Convert data into chart format
   const chartData = [
     ["Category", "Amount"],
     ...Object.entries(expenseCategories),
